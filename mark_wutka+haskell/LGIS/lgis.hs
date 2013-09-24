@@ -10,7 +10,7 @@ longestSubsequence' compareFunc [] longestChildren = longestChildren
 longestSubsequence' compareFunc (x:xs) longestChildren =
     longestSubsequence' compareFunc xs (seq longest (longest:longestChildren))
     where
-        longest = maximumBy compareLengths $ (1, [x]) : map (addPrefix x) (filter (canAdd x) longestChildren)
+        longest = maximumBy compareLengths $ map (addPrefix x) (filter (canAdd x) longestChildren)
         canAdd x (_, []) = True
         canAdd x (ylen, y:ys) = compareFunc y x
         addPrefix x (ylen,[]) = (1+ylen, [x])
