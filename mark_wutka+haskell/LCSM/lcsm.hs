@@ -51,7 +51,7 @@ getSubstrings (StringTree _ nodes) =
         concat (map makeSubstrings (Map.toList nodes))
             where
                 makeSubstrings (ch, tree) =
-                    [[ch]] ++ (map (\s -> ch : s) (getSubstrings tree))
+                    [[ch]] ++ (map (ch:) (getSubstrings tree))
 
 longestSubstring subs = maximumBy longestLength subs
     where
