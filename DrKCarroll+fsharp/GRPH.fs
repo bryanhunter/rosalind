@@ -2,20 +2,20 @@
 
 open BioInformaticsUtils
 
-// NOT WORKING YET (according to Rosalind)
 let overlapGraph (fasta: (string * string) list) k =
-    let parts = fasta |> List.map(fun (label, strand) -> (label, strand, (prefix strand k), (suffix strand k)))
-    let rec getOverlappingEdges (dna:(string * string * string * string)) (dnaList: (string * string * string * string) list) edges =
-        match dnaList with
+    let rec getOverlappingEdges (potentialTo:(string * string * string * string)) (potentialFroms: (string * string * string * string) list) edges =
+        match potentialFroms with
         | [] -> edges
-        | (label, strand, _, suffix) :: tail -> 
-            let (dnaLabel, dnaStrand, dnaPrefix, _) = dna
-            if strand = dnaStrand || dnaPrefix <> suffix then
-                getOverlappingEdges dna tail edges
-            else
-                (label, dnaLabel) :: edges
-    
-    parts |> List.map(fun dna -> getOverlappingEdges dna parts []) |> List.concat
+        | (fromLabel, fromStrand, _, fromSuffix) :: otherPotentialFroms -> 
+            let (toLabel, toStrand, toPrefix, _) = potentialTo
+            getOverlappingEdges potentialTo otherPotentialFroms 
+                (if fromStrand <> toStrand && fromSuffix = toPrefix then (fromLabel, toLabel) :: edges else edges)
+
+    let potentialFroms = fasta |> List.map(fun (label, strand) -> (label, strand, (prefix strand k), (suffix strand k)))
+
+    potentialFroms 
+    |> List.map(fun potentialTo -> getOverlappingEdges potentialTo potentialFroms []) 
+    |> List.concat
 
 
 

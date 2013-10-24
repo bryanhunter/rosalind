@@ -3,11 +3,12 @@ open System.IO
 open System.Numerics
 
 open BioInformaticsUtils
-//open GRPH
+open GRPH
 //open GC
 //open FIB
 //open CONS
-open SPLC
+//open SPLC
+//open FIBD
 
 [<EntryPoint>]
 let main argv = 
@@ -18,8 +19,10 @@ let main argv =
 //    let (label, maxGC) = GC.findMaxGC_Content fasta
 //    printfn "%s%s%f" label Environment.NewLine maxGC
 
-//    let result = overlapGraph fasta 3
-//    result |> List.map (fun (edgeHead, edgeTail) -> printfn "%s %s" edgeHead edgeTail) |> ignore
+    let result = overlapGraph fasta 3
+    result 
+    |> List.map (fun (edgeHead, edgeTail) -> printfn "%s %s" edgeHead edgeTail) 
+    |> ignore
 
 //    let rabbits = howManyRabbits 31 4
 //    printfn "Total Rabbits: %d" rabbits
@@ -29,8 +32,10 @@ let main argv =
 //
 //    writeConsensusStringAndProfileMatrixToFile result "C:\Users\kevinc\Desktop\Rosalind_CONS_Output.txt"
 
-    let protein = splice fasta
-    printfn "%s" protein
+//    let protein = splice fasta
+//    printfn "%s" protein
+
+//    printfn "Living Rabbits: %d" (livingRabbits 6 3)
 
     Console.ReadKey() |> ignore
     0 // return an integer exit code

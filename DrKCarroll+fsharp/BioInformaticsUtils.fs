@@ -22,21 +22,26 @@ let toFASTAfromLines (lines: string array) =
 
     lines 
     |> Array.iter(fun line -> 
-        if line <> "" then
+        if not (System.String.IsNullOrWhiteSpace(line)) then
             if line.[0] = '>' then
                 if sb.Length > 0 then
+                    // We have been collecting the previous entry's data. 
+                    // Add it (index in the fasta List should be odd)
                     fasta.Add(sb.ToString())
                     sb.Clear() |> ignore
 
+                // Add label (w/o '>') (index in the fasta List should be even)
                 fasta.Add(line.Trim().Substring(1))
             else
+                // This is data
                 sb.Append(line.Trim()) |> ignore
         ) 
 
+    // Add last data entry
     if sb.Length > 0 then
         fasta.Add(sb.ToString())
 
-    [for i in 0..((fasta.Count - 1) / 2) -> (fasta.[i * 2], fasta.[i * 2 + 1])]
+    [for i in 1..(fasta.Count / 2) -> (fasta.[(2 * i) - 2], fasta.[(2 * i) - 1])]
 
 // Returns a list of tuples containing the label-data pairs (e.g. [ ("Label1", "Data1"); ("Label2", "Data2") .... ] )
 // Assumes a "correct" file format

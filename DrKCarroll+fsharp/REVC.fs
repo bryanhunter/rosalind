@@ -2,21 +2,18 @@
 
 open BioInformaticsUtils
 
-// TODO: make tail-recursive
-
 let reverseComplement strand =
-    let rec complementList list complementedList =
+    let rec complementList list reversedComplementedList =
         match list with
         | head :: tail ->
             match head with
-            | 'T' -> 'A' :: complementList tail complementedList
-            | 'A' -> 'T' :: complementList tail complementedList
-            | 'C' -> 'G' :: complementList tail complementedList
-            | 'G' -> 'C' :: complementList tail complementedList
-            | _ -> head :: complementList tail complementedList
-        | [] -> complementedList
+            | 'T' -> complementList tail ('A' :: reversedComplementedList)
+            | 'A' -> complementList tail ('T' :: reversedComplementedList)
+            | 'C' -> complementList tail ('G' :: reversedComplementedList)
+            | 'G' -> complementList tail ('C' :: reversedComplementedList)
+            | _ -> failwith (sprintf "Illegal symbol in dna string [%c]" head)
+        | [] -> reversedComplementedList
 
-    asString (List.rev (complementList (asList strand) []))
-
+    asString (complementList (asList strand) [])
 
 
