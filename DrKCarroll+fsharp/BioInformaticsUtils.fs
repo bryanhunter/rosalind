@@ -1,5 +1,7 @@
 ﻿module BioInformaticsUtils
 
+type fastaList = (string * string) list
+
 // Converts a string to a char list
 let asList (s:string) =
     [for c in s -> c]
@@ -16,7 +18,7 @@ let asString (l : char list) =
     asStringInternal l
     sb.ToString()
 
-let toFASTAfromLines (lines: string array) =
+let toFASTAfromLines (lines: string array) :fastaList =
     let sb = new System.Text.StringBuilder()
     let fasta = new System.Collections.Generic.List<string>()
 

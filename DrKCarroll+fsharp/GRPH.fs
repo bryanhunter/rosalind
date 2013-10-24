@@ -2,7 +2,7 @@
 
 open BioInformaticsUtils
 
-let overlapGraph (fasta: (string * string) list) k =
+let overlapGraph (fasta: fastaList) k =
     let rec getOverlappingEdges (potentialTo:(string * string * string * string)) (potentialFroms: (string * string * string * string) list) edges =
         match potentialFroms with
         | [] -> edges

@@ -12,13 +12,10 @@ let mapSymbolToIndex s =
 
 let mapIndexToSymbol i =
     match i with 
-    | 0 -> 'A'
-    | 1 -> 'C'
-    | 2 -> 'G'
-    | 3 -> 'T'
+    | _ when i >= 0 && i < 4 -> [| 'A'; 'C'; 'G'; 'T' |].[i]
     | _ -> failwith (sprintf "Illegal index provided [%d]" i)
 
-let getConsensusString (fasta:(string * string) list) =
+let getConsensusString (fasta:fastaList) =
     // Assume each dna string in fasta is of the same length
     let n = (snd (List.head fasta)).Length
     
@@ -28,7 +25,8 @@ let getConsensusString (fasta:(string * string) list) =
     |> List.iter(fun (label, dna) -> 
         dna 
         |> asList 
-        |> List.iteri(fun i s -> profileMatrix.[mapSymbolToIndex s, i] <- profileMatrix.[mapSymbolToIndex s, i] + 1))
+        |> List.iteri(fun i s -> let row = mapSymbolToIndex s 
+                                 profileMatrix.[row, i] <- profileMatrix.[row, i] + 1))
 
     let sb = new System.Text.StringBuilder()
     for j in 0..(n - 1) do

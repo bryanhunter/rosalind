@@ -24,7 +24,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DocumentationFile>bin\Debug\Rosalind.XML</DocumentationFile>
     <Prefer32Bit>true</Prefer32Bit>
-    <StartArguments>"C:\Users\kevinc\AppData\Local\Microsoft\Windows\INetCache\IE\PLZQYMGH\rosalind_splc.txt"</StartArguments>
+    <StartArguments>"C:\Users\kevinc\AppData\Local\Microsoft\Windows\INetCache\IE\VG8TN3KL\rosalind_tran.txt"</StartArguments>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -44,6 +44,9 @@
     <Reference Include="mscorlib" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
@@ -61,6 +64,9 @@
     <Compile Include="GRPH.fs" />
     <Compile Include="CONS.fs" />
     <Compile Include="SPLC.fs" />
+    <Compile Include="FIBD.fs" />
+    <Compile Include="MPRT.fs" />
+    <Compile Include="TRAN.fs" />
     <Compile Include="Program.fs" />
     <None Include="App.config" />
   </ItemGroup>

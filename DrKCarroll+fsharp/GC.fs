@@ -14,8 +14,8 @@ let GC_Content strand =
 
     compute_GC (asList strand) 0.0 0.0
 
-let findMaxGC_Content (fasta:(string * string) list) =
-    let rec findMaxSoFar (fasta:(string * string) list) (maxSoFar:string * float) = 
+let findMaxGC_Content (fasta:fastaList) =
+    let rec findMaxSoFar (fasta:fastaList) (maxSoFar:string * float) = 
         let (maxSoFarLabel, maxSoFarValue) = maxSoFar
         match fasta with
         | (currentLabel, data) :: tail ->
