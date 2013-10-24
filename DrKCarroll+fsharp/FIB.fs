@@ -1,6 +1,6 @@
 ﻿module FIB
 
-let howManyRabbits n (k:int) =
+let howManyRabbitsWithAllGenerations n (k:int) =
     // Initialize an array to memoize previous calculations
     let F = [| for i in 1..n -> -1L |]
     F.[0] <- 1L
@@ -27,4 +27,7 @@ let howManyRabbits n (k:int) =
     let totalRabbits = howManyRabbitsAux m k 
     F.[m] <- totalRabbits
     F |> Seq.iteri (fun i f -> printfn "Generation %d, %d" (i + 1) f)
-    totalRabbits
+    (totalRabbits, F)
+
+let howManyRabbits n k =
+    fst (howManyRabbitsWithAllGenerations n k)
