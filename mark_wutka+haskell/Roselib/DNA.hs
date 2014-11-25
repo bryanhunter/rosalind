@@ -1,5 +1,5 @@
 module Roselib.DNA
-( complement, reverseComplement, dnaToRna)
+( complement, reverseComplement, dnaToRna, hammingDistance)
 where
 
 import Data.List
@@ -16,3 +16,7 @@ reverseComplement = reverse . complement
 dnaToRna:: String -> String
 dnaToRna dna =
   map (\c -> if c == 'T' then 'U' else c) dna
+
+hammingDistance :: String -> String -> Int
+hammingDistance s1 s2 =
+    length $ filter id $ zipWith (/=) s1 s2
