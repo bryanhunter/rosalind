@@ -6,6 +6,7 @@ import Data.Map as Map
 import Data.Maybe
 import Roselib.FASTA
 import Roselib.DNA
+import Roselib.Utils
 
 buildTable :: [String] -> Map String Int
 buildTable dnas =
