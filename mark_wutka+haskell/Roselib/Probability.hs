@@ -1,5 +1,5 @@
 module Roselib.Probability
-( randomProbability, gcProbability)
+( randomProbability, gcProbability, gcProbabilityTable)
 where
 
 import Data.List as List
@@ -11,10 +11,13 @@ randomProbability s probs =
         where
           charProb c = findWithDefault 0.0 c probs
 
-gcProbability :: String -> Double -> Double
-gcProbability s gcContent =
-    randomProbability s gcTable
+gcProbabilityTable :: Double -> Map Char Double
+gcProbabilityTable gcContent =
+    Map.fromList [ ('A',atProb), ('C', gcProb), ('G', gcProb), ('T',atProb) ]
         where
           gcProb = gcContent / 2.0
           atProb = (1.0 - gcContent) / 2.0
-          gcTable = Map.fromList [ ('A',atProb), ('C', gcProb), ('G', gcProb), ('T',atProb) ]
+
+gcProbability :: String -> Double -> Double
+gcProbability s gcContent =
+    randomProbability s $ gcProbabilityTable gcContent
