@@ -1,8 +1,8 @@
 module Roselib.Proteins
-(getProteinMass)
+(getProteinMass, getProteinByMass)
 where
 
-import Data.List
+import Data.List as List
 import qualified Data.Map as Map
 
 proteinMassTable = Map.fromList [
@@ -29,3 +29,9 @@ proteinMassTable = Map.fromList [
 
 getProteinMass prot =
     Map.findWithDefault 0.0 prot proteinMassTable
+
+massMatch m1 m2 =
+    abs (m1 - m2) < 0.001
+
+getProteinByMass m =
+    head $ List.filter (\x-> massMatch m (snd x)) (Map.toList proteinMassTable)
